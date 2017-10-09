@@ -46,13 +46,7 @@ class Home extends Component {
             {postsFiltered.length!==undefined?
                   postsFiltered.map((post, index) =>{
                     return  <Post key={index} 
-                                  id={post.id}
-                                  title={post.title}
-                                  body={post.body}
-                                  category={post.category}
-                                  timestamp={post.timestamp}
-                                  voteScore={post.voteScore}
-                                  author={post.author}
+                                  post={post}
                                   votePost={votePost} />
                   })
               :null}

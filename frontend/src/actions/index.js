@@ -33,6 +33,22 @@ export function fetchPosts(){
   }
 }
 
+// export function  fetchComments(id){
+//   const URL = `${API}/posts/${id}/comments`
+//   const request = axios.get(URL,{headers})
+//   return dispatch =>{
+//       request.then(({data})=>{
+//           dispatch({
+//               type:FETCH_COMMENTS,
+//               payload:{
+//                   data,
+//                   id
+//               }
+//           })
+//       })
+//   }
+// }
+
 export function votePost(id,option){
   const URL = `${API}/posts/${id}`
   const request = axios.post(URL,{option},{headers})
