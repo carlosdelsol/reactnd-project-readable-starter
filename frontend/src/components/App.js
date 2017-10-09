@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { Route, Switch, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
 import Home from './Home';
+import { fetchPosts } from './../actions';
 
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.getPosts();
+  }
+
   render() {
     return (
       <div className="App">
@@ -17,4 +24,12 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  getPosts: PropTypes.func
+};
+
+export default withRouter(
+  connect(null, {
+    getPosts: fetchPosts
+  })(App)
+);

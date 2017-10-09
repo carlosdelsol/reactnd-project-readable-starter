@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import {
+  RECEIVE_POSTS,
   ADD_NEW_POSTS,
   ADD_COMMENTS,
   EDIT_POSTS,
@@ -19,6 +20,10 @@ function Categories (state = {}, action) {
 
 function Posts (state = {}, action) {
   switch (action.type) {
+    case RECEIVE_POSTS :
+      return Object.assign({}, state, {
+        posts: action.posts
+      });
     case ADD_NEW_POSTS :
       return state
     case EDIT_POSTS :
