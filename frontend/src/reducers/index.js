@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import {
   RECEIVE_POSTS,
   RECEIVE_CATEGORIES,
+  VOTE_POST,
   ADD_NEW_POSTS,
   ADD_COMMENTS,
   EDIT_POSTS,
@@ -25,6 +26,8 @@ function posts (state = {}, action) {
   switch (action.type) {
     case RECEIVE_POSTS :
       return action.posts;
+    case VOTE_POST:
+      return state.map((post) => post.id == action.post.id ? action.post : post)
     case ADD_NEW_POSTS :
       return state
     case EDIT_POSTS :

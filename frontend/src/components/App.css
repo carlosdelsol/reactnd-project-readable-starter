@@ -34,3 +34,23 @@
 .header {
   border-bottom: 1px solid #e5e5e5;
 }
+
+.post-date {
+  color: #6a737c;
+  font-style: italic;
+}
+
+.post-date {
+  color: #0c4c8b;
+}
+
+.votes-score {
+  text-align: center;
+  font-size: xx-large;
+}
+
+.votes-button {
+  width: -webkit-fill-available;
+  background-color: transparent;
+  border: none;
+}

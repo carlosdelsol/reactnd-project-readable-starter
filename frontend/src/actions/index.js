@@ -1,7 +1,8 @@
-import * as APIUtil from '../utils/api';
+import axios from 'axios'
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
+export const VOTE_POST = "VOTE_POST";
 export const ADD_NEW_POSTS = 'ADD_NEW_POSTS'
 export const ADD_COMMENTS = 'ADD_COMMENTS'
 export const EDIT_POSTS = 'EDIT_POSTS'
@@ -9,27 +10,53 @@ export const EDIT_COMMENTS = 'EDIT_COMMENTS'
 export const DELETE_POSTS = 'DELETE_POSTS'
 export const DELETE_COMMENTS = 'DELETE_COMMENTS'
 
+const API = `http://localhost:3001`;
+const headers = { 'Authorization': 'carlosdelsol' };
+
+export function fetchCategories(){
+  const URL = `${API}/categories`
+  const request = axios.get(URL,{headers})
+  return dispatch => {
+      request.then((categories)=>{
+        dispatch(receiveCategories(categories.data))
+      })
+  }
+}
+
+export function fetchPosts(){
+  const URL = `${API}/posts`
+  const request = axios.get(URL,{headers})
+  return dispatch => {
+      request.then((posts)=>{
+        dispatch(receivePosts(posts.data))
+      }) 
+  }
+}
+
+export function votePost(id,option){
+  const URL = `${API}/posts/${id}`
+  const request = axios.post(URL,{option},{headers})
+  return dispatch => {
+      request.then((post)=>{
+        dispatch(updateVotePost(post.data))
+      })
+  }
+}
+
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
   categories
 });
-
-export const fetchCategories = () => dispatch => (
-  APIUtil
-      .fetchAPI('categories')
-      .then(categories => dispatch(receiveCategories(categories)))
-);
 
 export const receivePosts = posts => ({
   type: RECEIVE_POSTS,
   posts
 });
 
-export const fetchPosts = () => dispatch => (
-  APIUtil
-      .fetchAPI('posts')
-      .then(posts => dispatch(receivePosts(posts)))
-);
+export const updateVotePost = post => ({
+  type: VOTE_POST,
+  post
+});
 
 export function addNewPosts (){
   return{

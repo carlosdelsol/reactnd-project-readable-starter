@@ -3,6 +3,7 @@ import './App.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { capitalize } from '../utils/helpers'
+import { votePost } from '../actions'
 import Post from './Post'
 
 class Home extends Component {
@@ -17,8 +18,11 @@ class Home extends Component {
       posts: nextProps.posts
     });
   }
+  
   render() {
     const { categories, posts } = this.state;
+    const { votePost } = this.props;
+    
     return (
       <div className="App">
         <nav className="navbar navbar-default">
@@ -30,9 +34,17 @@ class Home extends Component {
         </nav>
 
           <div id="mainbar" className="col-lg-10">
-              {posts!==undefined?
+              {posts.length!==undefined?
                     posts.map((post, index) =>{
-                      return  <Post key={index} title={post.title} body={post.body} />
+                      return  <Post key={index} 
+                                    id={post.id}
+                                    title={post.title}
+                                    body={post.body}
+                                    category={post.category}
+                                    timestamp={post.timestamp}
+                                    voteScore={post.voteScore}
+                                    author={post.author}
+                                    votePost={votePost} />
                     })
                 :null}
           </div>
@@ -56,8 +68,9 @@ class Home extends Component {
 const mapStateToProps = state => {
   return {
     categories: state.categories,
-    posts: state.posts
+    posts: state.posts,
+    votePost: state.votePost
   };
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps,{votePost})(Home);
