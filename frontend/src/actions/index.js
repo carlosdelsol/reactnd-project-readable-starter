@@ -1,6 +1,7 @@
 import * as APIUtil from '../utils/api';
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
+export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
 export const ADD_NEW_POSTS = 'ADD_NEW_POSTS'
 export const ADD_COMMENTS = 'ADD_COMMENTS'
 export const EDIT_POSTS = 'EDIT_POSTS'
@@ -8,6 +9,18 @@ export const EDIT_COMMENTS = 'EDIT_COMMENTS'
 export const DELETE_POSTS = 'DELETE_POSTS'
 export const DELETE_COMMENTS = 'DELETE_COMMENTS'
 
+fetchCategories
+
+export const receiveCategories = categories => ({
+  type: RECEIVE_CATEGORIES,
+  categories
+});
+
+export const fetchCategories = () => dispatch => (
+  APIUtil
+      .fetchAPI('categories')
+      .then(categories => dispatch(receiveCategories(categories)))
+);
 
 export const receivePosts = posts => ({
   type: RECEIVE_POSTS,

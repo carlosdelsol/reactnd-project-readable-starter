@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import {
   RECEIVE_POSTS,
+  RECEIVE_CATEGORIES,
   ADD_NEW_POSTS,
   ADD_COMMENTS,
   EDIT_POSTS,
@@ -13,6 +14,8 @@ import {
 
 function Categories (state = {}, action) {
   switch (action.type) {
+    case RECEIVE_CATEGORIES :
+      return action.categories;
     default :
       return state
   }
@@ -21,9 +24,7 @@ function Categories (state = {}, action) {
 function Posts (state = {}, action) {
   switch (action.type) {
     case RECEIVE_POSTS :
-      return Object.assign({}, state, {
-        posts: action.posts
-      });
+      return action.posts;
     case ADD_NEW_POSTS :
       return state
     case EDIT_POSTS :
