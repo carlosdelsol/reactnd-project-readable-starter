@@ -17,7 +17,7 @@ function Categories (state = {}, action) {
   }
 }
 
-function Posts (state = initialCalendarState, action) {
+function Posts (state = {}, action) {
   switch (action.type) {
     case ADD_NEW_POSTS :
       return state
@@ -30,7 +30,7 @@ function Posts (state = initialCalendarState, action) {
   }
 }
 
-function Comments (state = initialCalendarState, action) {
+function Comments (state = {}, action) {
   switch (action.type) {
     case ADD_COMMENTS :
       return state

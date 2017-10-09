@@ -5,32 +5,32 @@ export const EDIT_COMMENTS = 'EDIT_COMMENTS'
 export const DELETE_POSTS = 'DELETE_POSTS'
 export const DELETE_COMMENTS = 'DELETE_COMMENTS'
 
-export function addNewPosts ({}){
+export function addNewPosts (){
   return{
     type: ADD_NEW_POSTS, 
   }
 }
-export function addComments ({}){
+export function addComments (){
   return{
     type: ADD_COMMENTS, 
   }
 }
-export function editPosts ({}){
+export function editPosts (){
   return{
     type: EDIT_POSTS, 
   }
 }
-export function editComments ({}){
+export function editComments (){
   return{
     type: EDIT_COMMENTS, 
   }
 }
-export function deletePosts ({}){
+export function deletePosts (){
   return{
     type: DELETE_POSTS, 
   }
 }
-export function deleteComments ({}){
+export function deleteComments (){
   return{
     type: DELETE_COMMENTS, 
   }

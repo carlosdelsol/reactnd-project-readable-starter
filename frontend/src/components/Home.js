@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 class Home extends Component {
@@ -16,11 +15,11 @@ class Home extends Component {
               <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
-              <Nav pullRight>
-                <NavItem><Link to="/react">React</Link></NavItem>
-                <NavItem><Link to="/redux">Redux</Link></NavItem>
-                <NavItem><Link to="/udacity">Udacity</Link></NavItem>
-              </Nav>
+            <ul className="nav navbar-nav navbar-right">
+                 <li role="presentation"><Link to="/react">React</Link></li>
+                 <li role="presentation"><Link to="/redux">Redux</Link></li>
+                 <li role="presentation"><Link to="/udacity">Udacity</Link></li>
+                 </ul>                 
             </Navbar.Collapse>
           </Navbar>
       </div>
