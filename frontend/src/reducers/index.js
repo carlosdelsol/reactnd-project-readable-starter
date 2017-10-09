@@ -12,7 +12,7 @@ import {
 } from '../actions'
 
 
-function Categories (state = {}, action) {
+function categories (state = {}, action) {
   switch (action.type) {
     case RECEIVE_CATEGORIES :
       return action.categories;
@@ -21,7 +21,7 @@ function Categories (state = {}, action) {
   }
 }
 
-function Posts (state = {}, action) {
+function posts (state = {}, action) {
   switch (action.type) {
     case RECEIVE_POSTS :
       return action.posts;
@@ -36,7 +36,7 @@ function Posts (state = {}, action) {
   }
 }
 
-function Comments (state = {}, action) {
+function comments (state = {}, action) {
   switch (action.type) {
     case ADD_COMMENTS :
       return state
@@ -50,7 +50,7 @@ function Comments (state = {}, action) {
 }
 
 export default combineReducers({
-  Categories,
-  Posts,
-  Comments,
+  categories,
+  posts,
+  comments,
 })
