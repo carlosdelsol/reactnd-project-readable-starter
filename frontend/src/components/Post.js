@@ -25,7 +25,7 @@ const Post = ({id, title, body, category, timestamp, author, voteScore, votePost
                     </div>
                     <div className="col-md-2">
                         <span className="label label-primary">{category}</span>
-                        <p className="post-date">{moment(timestamp).fromNow()}</p>
+                        <p className="post-date">{moment(timestamp).format("MMM Do YY")}</p>
                         <p className="post-author">{author}</p>
                     </div>
                 </div>
