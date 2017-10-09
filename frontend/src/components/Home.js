@@ -22,6 +22,8 @@ class Home extends Component {
   render() {
     const { categories, posts } = this.state;
     const { votePost } = this.props;
+    const { category } = this.props.match.params;
+    const postsFiltered =  category ? posts.filter(data => data.category === category) : posts;
     
     return (
       <div className="App">
@@ -34,8 +36,8 @@ class Home extends Component {
         </nav>
 
           <div id="mainbar" className="col-lg-10">
-              {posts.length!==undefined?
-                    posts.map((post, index) =>{
+              {postsFiltered.length!==undefined?
+                    postsFiltered.map((post, index) =>{
                       return  <Post key={index} 
                                     id={post.id}
                                     title={post.title}
