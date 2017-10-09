@@ -15,7 +15,7 @@ import {
 function categories (state = {}, action) {
   switch (action.type) {
     case RECEIVE_CATEGORIES :
-      return action.categories;
+      return action.categories.categories;
     default :
       return state
   }
