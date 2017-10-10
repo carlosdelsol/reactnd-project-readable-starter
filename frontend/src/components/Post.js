@@ -23,6 +23,7 @@ class Post extends Component {
         const { post, votePost, detail } = this.props;
         const { comments } = this.state;
         const numComments = comments.filter(comment => comment.parentId === post.id).length
+        
         return (
             <div className="row">
                 <div className="thumbnail">

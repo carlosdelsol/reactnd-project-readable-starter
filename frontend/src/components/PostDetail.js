@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { capitalize } from '../utils/helpers'
 import NavBar from './NavBar'
 import SideBar from './SideBar'
 import Post from './Post'
@@ -24,7 +22,7 @@ class PostDetail extends Component {
 
   render() {
     const { sort } = this.state;
-    const { posts, categories, postSelected } = this.props;
+    const { categories, postSelected } = this.props;
     return (
       <div className="App">
         <NavBar />
@@ -39,7 +37,6 @@ class PostDetail extends Component {
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts,
     categories: state.categories,
     comments: state.comments,
     postSelected: state.postSelected    

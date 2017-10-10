@@ -45,6 +45,8 @@ function postSelected (state = {}, action) {
   switch (action.type) {
     case RECEIVE_POST :
       return action.post;
+    case VOTE_POST:
+      return state.id === action.post.id ? action.post : state
     default :
       return state
   }

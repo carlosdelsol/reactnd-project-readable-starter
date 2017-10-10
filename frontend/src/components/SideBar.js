@@ -7,7 +7,7 @@ class SideBar extends Component {
         this.props.handleChangeSort(e);
     }
     render() {
-        const { categories, sort, handleChangeSort } = this.props
+        const { categories, sort } = this.props
         return (
             <div id="sidebar" className="col-lg-2 blog-sidebar">
                 <select value={sort} onChange={this.handleChange}>
