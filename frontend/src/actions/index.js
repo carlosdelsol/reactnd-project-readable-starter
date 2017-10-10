@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
+export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
 export const VOTE_POST = "VOTE_POST";
 export const ADD_NEW_POSTS = 'ADD_NEW_POSTS'
 export const ADD_COMMENTS = 'ADD_COMMENTS'
@@ -33,21 +34,15 @@ export function fetchPosts(){
   }
 }
 
-// export function  fetchComments(id){
-//   const URL = `${API}/posts/${id}/comments`
-//   const request = axios.get(URL,{headers})
-//   return dispatch =>{
-//       request.then(({data})=>{
-//           dispatch({
-//               type:FETCH_COMMENTS,
-//               payload:{
-//                   data,
-//                   id
-//               }
-//           })
-//       })
-//   }
-// }
+export function  fetchComments(id){
+  const URL = `${API}/posts/${id}/comments`
+  const request = axios.get(URL,{headers})
+  return dispatch =>{
+      request.then((comments)=>{
+        dispatch(receiveComments(comments.data, id))
+      })
+  }
+}
 
 export function votePost(id,option){
   const URL = `${API}/posts/${id}`
@@ -67,6 +62,12 @@ export const receiveCategories = categories => ({
 export const receivePosts = posts => ({
   type: RECEIVE_POSTS,
   posts
+});
+
+export const receiveComments = (posts, id) => ({
+  type: RECEIVE_COMMENTS,
+  posts,
+  id
 });
 
 export const updateVotePost = post => ({

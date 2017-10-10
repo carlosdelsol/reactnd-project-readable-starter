@@ -4,7 +4,6 @@ import './App.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { capitalize } from '../utils/helpers'
-import { votePost } from '../actions'
 import Post from './Post'
 
 class Home extends Component {
@@ -29,7 +28,6 @@ class Home extends Component {
   
   render() {
     const { categories, posts, sort } = this.state;
-    const { votePost } = this.props;
     const { category } = this.props.match.params;
     const postsFiltered =  category ? posts.filter(data => data.category === category) : posts;
     
@@ -45,9 +43,7 @@ class Home extends Component {
         <div id="mainbar" className="col-lg-10">
             {postsFiltered.length!==undefined?
                   postsFiltered.map((post, index) =>{
-                    return  <Post key={index} 
-                                  post={post}
-                                  votePost={votePost} />
+                    return  <Post key={index} post={post} />
                   })
               :null}
         </div>
@@ -75,9 +71,8 @@ class Home extends Component {
 const mapStateToProps = state => {
   return {
     categories: state.categories,
-    posts: state.posts,
-    votePost: state.votePost
+    posts: state.posts
   };
 };
 
-export default connect(mapStateToProps,{votePost})(Home);
+export default connect(mapStateToProps)(Home);
