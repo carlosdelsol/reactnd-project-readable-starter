@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Home from './Home';
+import PostDetail from './PostDetail';
+
 import { fetchPosts, fetchCategories } from './../actions';
 
 import './App.css';
@@ -19,6 +21,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/:category" component={Home} />
+          <Route path="/:category/:postId" component={PostDetail} />
         </Switch>
       </div>
     );

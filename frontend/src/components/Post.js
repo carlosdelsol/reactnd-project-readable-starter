@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import ArrowDownIcon from 'react-icons/lib/fa/angle-down'
 import ArrowUptIcon from 'react-icons/lib/fa/angle-up'
 import { votePost, fetchComments } from '../actions'
@@ -19,7 +20,7 @@ class Post extends Component {
     }
 
     render() {
-        const { post, votePost } = this.props;
+        const { post, votePost, detail } = this.props;
         const { comments } = this.state;
         const numComments = comments.filter(comment => comment.parentId === post.id).length
         return (
@@ -37,7 +38,7 @@ class Post extends Component {
                                 </button>
                             </div>
                             <div className="col-md-9">
-                                <h3>{post.title}</h3>
+                                {detail? <h3>{post.title}</h3> :<Link to={"/"+post.category+"/"+post.id}><h3>{post.title}</h3></Link>}
                                 <p>{post.body}</p>
                             </div>
                             <div className="col-md-2">
@@ -45,6 +46,10 @@ class Post extends Component {
                                 <p className="post-date">{moment(post.timestamp).format("MMM Do YY")}</p>
                                 <p className="post-author">{post.author}</p>
                                 <p>Comments: {numComments}</p>
+                                <p>
+                                    <button type="button" className="btn btn-info btn-xs">Edit</button> &emsp;
+                                    <button type="button" className="btn btn-danger btn-xs">Delete</button>
+                                </p>
                             </div>
                         </div>
                     </div>

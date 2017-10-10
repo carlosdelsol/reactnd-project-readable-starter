@@ -1,37 +1,35 @@
 import React, { Component } from 'react';
-import _ from 'lodash'
 import './App.css';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { capitalize } from '../utils/helpers'
 import NavBar from './NavBar'
 import SideBar from './SideBar'
 import Post from './Post'
+import { fetchPost } from '../actions'
 
-class Home extends Component {
+class PostDetail extends Component {
   state = {
     sort: 'Date'
   };
-  
+
+  componentDidMount() {
+    this.props.getPost(this.props.match.params.postId);
+  }
+    
   handleChangeSort = (e) =>{
     var index = e.nativeEvent.target[e.nativeEvent.target.selectedIndex].value;
     this.setState({sort: index});
   }
-  
+
   render() {
     const { sort } = this.state;
-    const { posts, categories } = this.props;
-    const { category } = this.props.match.params;
-    const postsSorted = _.sortBy(posts, this.state.sort).reverse();
-    const postsFiltered =  category ? postsSorted.filter(data => data.category === category) : postsSorted;
-    
+    const { posts, categories, postSelected } = this.props;
     return (
       <div className="App">
         <NavBar />
         <div id="mainbar" className="col-lg-10">
-            {postsFiltered.length!==undefined?
-                  postsFiltered.map((post, index) =>{
-                    return  <Post key={index} post={post} detail={false} />
-                  })
-              :null}
+            <Post post={postSelected} detail={true} />
         </div>
         <SideBar categories={categories} sort={sort} handleChangeSort={this.handleChangeSort} />
       </div>
@@ -41,9 +39,11 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
+    posts: state.posts,
     categories: state.categories,
-    posts: state.posts
+    comments: state.comments,
+    postSelected: state.postSelected    
   };
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps,{ getPost: fetchPost})(PostDetail);

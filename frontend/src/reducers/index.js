@@ -4,6 +4,7 @@ import {
   RECEIVE_POSTS,
   RECEIVE_CATEGORIES,
   RECEIVE_COMMENTS,
+  RECEIVE_POST,
   VOTE_POST,
   ADD_NEW_POSTS,
   ADD_COMMENTS,
@@ -40,6 +41,15 @@ function posts (state = {}, action) {
   }
 }
 
+function postSelected (state = {}, action) {
+  switch (action.type) {
+    case RECEIVE_POST :
+      return action.post;
+    default :
+      return state
+  }
+}
+
 function comments (state = {}, action) {
   switch (action.type) {
     case RECEIVE_COMMENTS :
@@ -59,4 +69,5 @@ export default combineReducers({
   categories,
   posts,
   comments,
+  postSelected
 })
