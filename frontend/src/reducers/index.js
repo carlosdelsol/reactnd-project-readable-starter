@@ -55,9 +55,14 @@ function postSelected (state = {}, action) {
 }
 
 function comments (state = {}, action) {
+  const { id, posts } = action
+  
   switch (action.type) {
     case RECEIVE_COMMENTS :
-      return action.posts
+      return {
+        ...state,
+        [id]: posts
+        }
     case ADD_COMMENTS :
       return state
     case EDIT_COMMENTS :

@@ -8,21 +8,13 @@ import ArrowUptIcon from 'react-icons/lib/fa/angle-up'
 import { votePost, fetchComments, deletePost} from '../actions'
 
 class Post extends Component {
-    state = {
-      comments: [],
-    };
     componentDidMount() {
         this.props.getComments(this.props.post.id);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({ comments: nextProps.comments });
-    }
-
     render() {
-        const { post, votePost, detail } = this.props;
-        const { comments } = this.state;
-        const numComments = comments.filter(comment => comment.parentId === post.id).length
+        const { type, post, votePost, detail, comments } = this.props;
+        const numComments = comments[post.id]?comments[post.id].filter(comment => comment.parentId === this.props.post.id).length:0
         
         return (
             <div className="row">
@@ -30,11 +22,11 @@ class Post extends Component {
                     <div className="caption">
                         <div className="row">
                             <div className="col-md-1">
-                                <button className="votes-button" onClick={() => votePost(post.id,'upVote')}>
+                                <button className="votes-button" onClick={() => votePost(type, post.id,'upVote')}>
                                     <ArrowUptIcon size={30}/>
                                 </button>
                                 <div className="votes-score">{post.voteScore}</div>
-                                <button className="votes-button" onClick={() => votePost(post.id,'downVote')}>
+                                <button className="votes-button" onClick={() => votePost(type, post.id,'downVote')}>
                                     <ArrowDownIcon size={30}/>
                                 </button>
                             </div>
@@ -48,7 +40,7 @@ class Post extends Component {
                                 <p className="post-author">{post.author}</p>
                                 <p>Comments: {numComments}</p>
                                 <p>
-                                    <Link className="btn btn-info btn-xs" to={"/posts/edit/"+post.id}>Edit</Link> &emsp;
+                                    <Link className="btn btn-info btn-xs" to={"/"+type+"/edit/"+post.id}>Edit</Link> &emsp;
                                     <button type="button" className="btn btn-danger btn-xs" onClick={() => deletePost(post.id)}>Delete</button>
                                 </p>
                             </div>

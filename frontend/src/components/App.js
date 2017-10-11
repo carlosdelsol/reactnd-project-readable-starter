@@ -23,6 +23,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/posts/new" component={PostForm} />
           <Route path="/posts/edit/:postId" component={PostForm} />
+          <Route path="/comments/edit/:commentId" component={PostForm} />
           <Route exact path="/:category" component={Home} />
           <Route path="/:category/:postId" component={PostDetail} />
         </Switch>

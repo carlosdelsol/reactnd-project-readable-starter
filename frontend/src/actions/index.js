@@ -35,8 +35,8 @@ export function fetchPosts(){
   }
 }
 
-export function fetchPost(id){
-  const URL = `${API}/posts/${id}`
+export function fetchPost(id, type){
+  const URL = `${API}/${type}/${id}`
   const request = axios.get(URL,{headers})
   return dispatch => {
       request.then((post)=>{
@@ -55,8 +55,8 @@ export function  fetchComments(id){
   }
 }
 
-export function votePost(id,option){
-  const URL = `${API}/posts/${id}`
+export function votePost(type, id,option){
+  const URL = `${API}/${type}/${id}`
   const request = axios.post(URL,{option},{headers})
   return dispatch => {
       request.then((post)=>{

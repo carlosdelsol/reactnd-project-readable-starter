@@ -27,11 +27,11 @@ class Home extends Component {
       <div className="App">
         <NavBar />
         <div id="mainbar" className="col-lg-10">
-            {postsFiltered.length!==undefined?
+            {postsFiltered &&
                   postsFiltered.map((post, index) =>{
-                    return  <Post key={index} post={post} detail={false} />
+                    return  <Post key={index} type="posts" post={post} detail={false} />
                   })
-              :null}
+            }
         </div>
         <SideBar categories={categories} sort={sort} handleChangeSort={this.handleChangeSort} />
       </div>

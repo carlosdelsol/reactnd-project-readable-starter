@@ -13,16 +13,22 @@ class PostForm extends Component{
     };
 
     componentDidMount() {
-        if(this.props.match.params.postId !== undefined){
-            this.props.getPost(this.props.match.params.postId);
+        if(this.props.match){
+            if(this.props.match.params.postId){
+                this.props.getPost(this.props.match.params.postId, "posts");
+            } else if(this.props.match.params.commentId){
+                this.props.getPost(this.props.match.params.commentId, "comments");
+            } 
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ title: nextProps.postSelected.title,
-                        body: nextProps.postSelected.body,
-                        author: nextProps.postSelected.author,
-                        category: nextProps.postSelected.category });
+        if(this.props.match){
+            this.setState({ title: nextProps.postSelected.title,
+                            body: nextProps.postSelected.body,
+                            author: nextProps.postSelected.author,
+                            category: nextProps.postSelected.category });
+        }
     }
 
     handleChangeSort = (e) =>{
@@ -57,12 +63,14 @@ class PostForm extends Component{
         const categoriesList = categories.length!==undefined ? categories.map((category, index) => { return <option key={index} value={category.path} >{category.name}</option>} ) : null;
         return(
             <div className="App">            
-                <NavBar />
+                {this.props.match && <NavBar />}
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="title">title:</label>
-                        <input type="title" className="form-control" id="title" name="title" value={title || ""} onChange={this.handleChange} />
-                    </div>
+                    {this.props.match && !this.props.match.params.commentId && 
+                        <div className="form-group">
+                            <label htmlFor="title">title:</label>
+                            <input type="title" className="form-control" id="title" name="title" value={title || ""} onChange={this.handleChange} />
+                        </div>
+                    }
                     <div className="form-group">
                         <label htmlFor="body">body:</label>
                         <input type="body" className="form-control" id="body" name="body" value={body || ""} onChange={this.handleChange} />
