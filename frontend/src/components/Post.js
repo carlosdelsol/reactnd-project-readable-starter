@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import ArrowDownIcon from 'react-icons/lib/fa/angle-down'
 import ArrowUptIcon from 'react-icons/lib/fa/angle-up'
-import { votePost, fetchComments } from '../actions'
+import { votePost, fetchComments, deletePost} from '../actions'
 
 class Post extends Component {
     state = {
@@ -48,8 +48,8 @@ class Post extends Component {
                                 <p className="post-author">{post.author}</p>
                                 <p>Comments: {numComments}</p>
                                 <p>
-                                    <button type="button" className="btn btn-info btn-xs">Edit</button> &emsp;
-                                    <button type="button" className="btn btn-danger btn-xs">Delete</button>
+                                    <Link className="btn btn-info btn-xs" to={"/posts/edit/"+post.id}>Edit</Link> &emsp;
+                                    <button type="button" className="btn btn-danger btn-xs" onClick={() => deletePost(post.id)}>Delete</button>
                                 </p>
                             </div>
                         </div>
@@ -64,4 +64,4 @@ const mapStateToProps = state => {
       comments: state.comments
     };
   };
-export default connect(mapStateToProps,{votePost, getComments: fetchComments})(Post);
+export default connect(mapStateToProps,{votePost, getComments: fetchComments, deletePost})(Post);

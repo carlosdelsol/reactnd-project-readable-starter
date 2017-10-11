@@ -7,9 +7,9 @@ export const VOTE_POST = "VOTE_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
 export const ADD_NEW_POSTS = 'ADD_NEW_POSTS'
 export const ADD_COMMENTS = 'ADD_COMMENTS'
-export const EDIT_POSTS = 'EDIT_POSTS'
+export const EDIT_POST = 'EDIT_POST'
 export const EDIT_COMMENTS = 'EDIT_COMMENTS'
-export const DELETE_POSTS = 'DELETE_POSTS'
+export const DELETE_POST = 'DELETE_POST'
 export const DELETE_COMMENTS = 'DELETE_COMMENTS'
 
 const API = `http://localhost:3001`;
@@ -65,6 +65,17 @@ export function votePost(id,option){
   }
 }
 
+export function  deletePost(id){
+  return dispatch => {
+    
+    const URL = `${API}/posts/${id}`
+    axios.delete(URL,{headers}).then(()=>
+      console.log(id)
+    )
+  }
+  
+}
+
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
   categories
@@ -103,7 +114,7 @@ export function addComments (){
 }
 export function editPosts (){
   return{
-    type: EDIT_POSTS, 
+    type: EDIT_POST, 
   }
 }
 export function editComments (){
@@ -111,11 +122,7 @@ export function editComments (){
     type: EDIT_COMMENTS, 
   }
 }
-export function deletePosts (){
-  return{
-    type: DELETE_POSTS, 
-  }
-}
+
 export function deleteComments (){
   return{
     type: DELETE_COMMENTS, 

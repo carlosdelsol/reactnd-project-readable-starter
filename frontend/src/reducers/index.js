@@ -8,9 +8,9 @@ import {
   VOTE_POST,
   ADD_NEW_POSTS,
   ADD_COMMENTS,
-  EDIT_POSTS,
+  EDIT_POST,
   EDIT_COMMENTS,
-  DELETE_POSTS,
+  DELETE_POST,
   DELETE_COMMENTS,
 } from '../actions'
 
@@ -26,17 +26,19 @@ function categories (state = {}, action) {
 
 function posts (state = {}, action) {
   switch (action.type) {
-    case RECEIVE_POSTS :
+    case RECEIVE_POSTS:
       return action.posts;
     case VOTE_POST:
       return state.map((post) => post.id === action.post.id ? action.post : post)
-    case ADD_NEW_POSTS :
+    case ADD_NEW_POSTS:
       return state
-    case EDIT_POSTS :
+    case EDIT_POST:
       return state
-    case DELETE_POSTS :
-      return state
-    default :
+    case DELETE_POST:
+      console.log(action)
+      console.log(state)
+      return state.filter((post) => post.id !== action.id)
+    default:
       return state
   }
 }

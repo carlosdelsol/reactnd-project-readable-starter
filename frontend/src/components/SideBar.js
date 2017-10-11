@@ -10,6 +10,9 @@ class SideBar extends Component {
         const { categories, sort } = this.props
         return (
             <div id="sidebar" className="col-lg-2 blog-sidebar">
+                <div className="field">
+                    <Link className="btn btn-success" to="/posts/new">New Post</Link><br/><br/>
+                </div>
                 <select value={sort} onChange={this.handleChange}>
                     <option value="timestamp">Date</option>
                     <option value="voteScore">Score</option>

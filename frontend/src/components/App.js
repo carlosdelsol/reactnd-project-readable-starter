@@ -4,6 +4,7 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Home from './Home';
 import PostDetail from './PostDetail';
+import PostForm from './PostForm';
 
 import { fetchPosts, fetchCategories } from './../actions';
 
@@ -20,6 +21,8 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/posts/new" component={PostForm} />
+          <Route path="/posts/edit/:postId" component={PostForm} />
           <Route exact path="/:category" component={Home} />
           <Route path="/:category/:postId" component={PostDetail} />
         </Switch>
