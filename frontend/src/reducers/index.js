@@ -55,13 +55,22 @@ function postSelected (state = {}, action) {
 }
 
 function comments (state = {}, action) {
-  const { id, posts } = action
-  
   switch (action.type) {
     case RECEIVE_COMMENTS :
+      return (action.id && action.posts.length > 0) ? {
+            ...state,
+            [action.id]: action.posts.reduce(function(map, obj) {
+              map[obj.id] = obj;
+              return map;
+          }, {})
+        }: state
+    case VOTE_POST:
       return {
         ...state,
-        [id]: posts
+        [action.post.parentId]: {
+            ...state[action.post.parentId],
+            [action.post.id]: action.post
+          }
         }
     case ADD_COMMENTS :
       return state

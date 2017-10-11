@@ -14,7 +14,8 @@ class Post extends Component {
 
     render() {
         const { type, post, votePost, detail, comments } = this.props;
-        const numComments = comments[post.id]?comments[post.id].filter(comment => comment.parentId === this.props.post.id).length:0
+        const comment = comments[post.id] || {};
+        const numComments = Object.keys(comment).length
         
         return (
             <div className="row">
