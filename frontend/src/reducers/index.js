@@ -63,15 +63,15 @@ function comments (state = {}, action) {
               map[obj.id] = obj;
               return map;
           }, {})
-        }: state
+        } : state
     case VOTE_POST:
-      return {
+      return (action.post.parentId) ? {
         ...state,
         [action.post.parentId]: {
             ...state[action.post.parentId],
             [action.post.id]: action.post
           }
-        }
+        } : state
     case ADD_COMMENTS :
       return state
     case EDIT_COMMENTS :
