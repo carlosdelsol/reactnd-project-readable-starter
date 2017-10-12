@@ -71,14 +71,14 @@ export const remove = (type, id, callback) => dispatch => {
 		headers: headers
 	});
 	return fetch(request)	
-	.then(res => res.json())
-	.then((obj) => {
-    if(type==="posts"){
-      dispatch(removePost(obj)); 
-      callback()
-    }else{
-      dispatch(removeComment(obj)); 
-    }
+    .then(res => res.json())
+    .then((obj) => {
+        if(type==="posts"){
+          dispatch(removePost(obj)); 
+          callback()
+        }else{
+          dispatch(removeComment(obj)); 
+        }
   })
 };
 
@@ -99,6 +99,23 @@ export function addPost(values, type, callback){
     }
 }
 
+export function editPost(id, values, type, callback){
+  console.log(id)
+  console.log(values)
+  console.log(type)
+  const URL = `${API}/${type}/${id}`
+  const request = axios.put(URL,values,{headers})
+  return dispatch => {
+      request.then(({data})=>{
+        if(type==="posts"){
+          dispatch(updatePost(data)); 
+        }else{
+          dispatch(updateComment(data)); 
+        }       
+      })
+      .then(()=>callback())
+  }
+}
 
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
@@ -141,24 +158,17 @@ export const addNewPost = post => ({
     post
 });
 
-export const addNewComment = post => ({
+export const addNewComment = comment => ({
   type: ADD_NEW_COMMENT, 
+  comment
+});
+
+export const updatePost = post => ({
+  type: EDIT_POST, 
   post
 });
 
-export function editPosts (){
-  return{
-    type: EDIT_POST, 
-  }
-}
-export function editComments (){
-  return{
-    type: EDIT_COMMENT, 
-  }
-}
-
-export function deleteComments (){
-  return{
-    type: DELETE_COMMENT, 
-  }
-}
+export const updateComment = comment => ({
+type: EDIT_COMMENT, 
+comment
+});

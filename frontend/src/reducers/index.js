@@ -34,7 +34,7 @@ function posts (state = {}, action) {
     case ADD_NEW_POST:
       return {...state, [action.post.id]:action.post}
     case EDIT_POST:
-      return state
+      return state.map((post) => post.id === action.post.id ? action.post : post)
     case DELETE_POST:
       return state.filter(post => post.id !== action.post.id)
     default:
@@ -72,15 +72,21 @@ function comments (state = {}, action) {
           }
         } : state
     case ADD_NEW_COMMENT:
-      return (action.post.parentId) ? {
+      return (action.comment.parentId) ? {
         ...state,
-        [action.post.parentId]: {
-            ...state[action.post.parentId],
-            [action.post.id]: action.post
+        [action.comment.parentId]: {
+            ...state[action.comment.parentId],
+            [action.comment.id]: action.comment
           }
         } : state
     case EDIT_COMMENT:
-      return state
+      return (action.comment.parentId) ? {
+        ...state,
+        [action.comment.parentId]: {
+            ...state[action.comment.parentId],
+            [action.comment.id]: action.comment
+          }
+        } : state
     case DELETE_COMMENT:
       return  { ...state,
                   [action.comment.parentId]: _.values(state[action.comment.parentId])
