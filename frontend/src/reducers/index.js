@@ -8,7 +8,7 @@ import {
   RECEIVE_POST,
   VOTE_POST,
   ADD_NEW_POST,
-  ADD_COMMENT,
+  ADD_NEW_COMMENT,
   EDIT_POST,
   EDIT_COMMENT,
   DELETE_POST,
@@ -32,7 +32,7 @@ function posts (state = {}, action) {
     case VOTE_POST:
       return state.map((post) => post.id === action.post.id ? action.post : post)
     case ADD_NEW_POST:
-      return state
+      return {...state, [action.post.id]:action.post}
     case EDIT_POST:
       return state
     case DELETE_POST:
@@ -71,8 +71,14 @@ function comments (state = {}, action) {
             [action.post.id]: action.post
           }
         } : state
-    case ADD_COMMENT:
-      return state
+    case ADD_NEW_COMMENT:
+      return (action.post.parentId) ? {
+        ...state,
+        [action.post.parentId]: {
+            ...state[action.post.parentId],
+            [action.post.id]: action.post
+          }
+        } : state
     case EDIT_COMMENT:
       return state
     case DELETE_COMMENT:

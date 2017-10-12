@@ -36,7 +36,7 @@ class Post extends Component {
                                 <p>{post.body}</p>
                             </div>
                             <div className="col-md-2">
-                                <span className="label label-primary">{post.category}</span>
+                                {type === "posts" && <span className="label label-primary">{post.category}</span>}
                                 <p className="post-date">{moment(post.timestamp).format("MMM Do YY")}</p>
                                 <p className="post-author">{post.author}</p>
                                 <p>Comments: {numComments}</p>

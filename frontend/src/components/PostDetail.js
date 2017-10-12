@@ -40,13 +40,13 @@ class PostDetail extends Component {
             <div id="mainbar" className="col-lg-10">
                 <Post type="posts" post={postSelected} detail={true} />
                 <div className="col-lg-12">
-                  {commentsSorted && commentsSorted.map((post, index) =>{
-                    return  <Post key={index} type="comments" post={post} detail={false} />
+                  {commentsSorted && commentsSorted.map((comment, index) =>{
+                    return  <Post key={index} type="comments" post={comment} detail={false} />
                   })}
                 </div>
                 <div className="col-lg-12">
                   <h2>New comment:</h2>
-                  <PostForm />
+                  <PostForm path="/comments/new" />
                 </div>
             </div>
             <SideBar categories={categories} sort={sort} handleChangeSort={this.handleChangeSort} />

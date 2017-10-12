@@ -6,7 +6,7 @@ export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
 export const VOTE_POST = "VOTE_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
 export const ADD_NEW_POST = 'ADD_NEW_POST'
-export const ADD_COMMENT = 'ADD_COMMENT'
+export const ADD_NEW_COMMENT = 'ADD_NEW_COMMENT'
 export const EDIT_POST = 'EDIT_POST'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_POST = 'DELETE_POST'
@@ -82,6 +82,24 @@ export const remove = (type, id, callback) => dispatch => {
   })
 };
 
+export function addPost(values, type, callback){
+  const URL = `${API}/${type}`
+  const request = axios.post(URL,values,{headers})
+  return dispatch => {
+      request.then(({data})=>{
+        if(type==="posts"){
+          dispatch(addNewPost(data)); 
+          dispatch(fetchPosts());
+          callback()
+        }else{
+          dispatch(addNewComment(data)); 
+          dispatch(fetchComments())
+        }        
+      })
+    }
+}
+
+
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
   categories
@@ -118,16 +136,16 @@ export const removeComment = comment => ({
     comment
 });
 
-export function addNewPosts (){
-  return{
+export const addNewPost = post => ({
     type: ADD_NEW_POST, 
-  }
-}
-export function addComments (){
-  return{
-    type: ADD_COMMENT, 
-  }
-}
+    post
+});
+
+export const addNewComment = post => ({
+  type: ADD_NEW_COMMENT, 
+  post
+});
+
 export function editPosts (){
   return{
     type: EDIT_POST, 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { capitalize } from '../utils/helpers'
 
 class SideBar extends Component {
     handleChange = (e) =>{
@@ -22,7 +21,7 @@ class SideBar extends Component {
                     <ol className="list-unstyled">
                         {categories.length!==undefined?
                             categories.map((category, index) =>{
-                            return <li key={index}><Link to={"/"+category.path}>{capitalize(category.name)}</Link></li>
+                            return <li key={index}><Link to={"/"+category.path}>{category.name}</Link></li>
                             })
                         :null}
                     </ol>
