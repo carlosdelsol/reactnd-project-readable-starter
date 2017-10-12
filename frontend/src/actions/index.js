@@ -100,9 +100,6 @@ export function addPost(values, type, callback){
 }
 
 export function editPost(id, values, type, callback){
-  console.log(id)
-  console.log(values)
-  console.log(type)
   const URL = `${API}/${type}/${id}`
   const request = axios.put(URL,values,{headers})
   return dispatch => {

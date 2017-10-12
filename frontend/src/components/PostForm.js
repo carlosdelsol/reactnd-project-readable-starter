@@ -69,13 +69,11 @@ class PostForm extends Component{
                 }
                 else if(this.props.match.params.postId !== undefined){
                     //editPost
-                    console.log("editPost")
                     const editPost = Object.assign({}, this.state.post)
                     this.props.editPost(this.state.post.id, editPost, "posts", ()=>this.props.history.push(`/${this.state.post.category}/${this.state.post.id}`))
                 }
                 else if(this.props.match.params.commentId !== undefined){
                     //editComment
-                    console.log("editComment")
                     const editComment = Object.assign({}, this.state.post)
                     this.props.editPost(this.state.post.id, editComment, "comments", ()=>this.props.history.push(`/${this.state.post.category}/${this.state.post.parentId}`))
                 }
@@ -83,7 +81,7 @@ class PostForm extends Component{
             else{
                 //newComment
                 const newComment = Object.assign({}, this.state.post, {id: uuidv1(), parentId: this.state.parentId, timestamp: (new Date()).getTime()})
-                this.props.addPost(newComment, "comments", this.setState({post:{}, parentId:''}))
+                this.props.addPost(newComment, "comments", this.setState({post:{}}))
             }
         }
     }

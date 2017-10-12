@@ -16,4 +16,4 @@ The assignment is complete and fully functional according to the [rubric](https:
     - `npm start`
 
 ## API Server
-Information about the API server and how to use it can be found in its README file.
+Information about the API server and how to use it can be found in its [README file](api-server/README.md)
