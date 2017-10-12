@@ -12,4 +12,5 @@ The assignment is complete and fully functional according to the [rubric](https:
 ## Getting up Readable
 * In another terminal window, use Create React App to scaffold out the front-end
     - `cd frontend`
+    - `npm install`
     - `npm start`
