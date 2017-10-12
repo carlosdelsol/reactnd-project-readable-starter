@@ -32,23 +32,27 @@ class PostDetail extends Component {
     const { sort } = this.state;
     const { categories, postSelected, comments } = this.props;
     const commentsSorted = _.sortBy(comments[this.props.match.params.postId], this.state.sort).reverse();
-
     return (
       <div className="App">
-        <NavBar />
-        <div id="mainbar" className="col-lg-10">
-            <Post type="posts" post={postSelected} detail={true} />
-            <div className="col-lg-12">
-              {commentsSorted && commentsSorted.map((post, index) =>{
-                return  <Post key={index} type="comments" post={post} detail={false} />
-              })}
+        {(Object.keys(postSelected).length !== 0)? 
+          <div>
+            <NavBar />
+            <div id="mainbar" className="col-lg-10">
+                <Post type="posts" post={postSelected} detail={true} />
+                <div className="col-lg-12">
+                  {commentsSorted && commentsSorted.map((post, index) =>{
+                    return  <Post key={index} type="comments" post={post} detail={false} />
+                  })}
+                </div>
+                <div className="col-lg-12">
+                  <h2>New comment:</h2>
+                  <PostForm />
+                </div>
             </div>
-            <div className="col-lg-12">
-              <h2>New comment:</h2>
-              <PostForm />
-            </div>
-        </div>
-        <SideBar categories={categories} sort={sort} handleChangeSort={this.handleChangeSort} />
+            <SideBar categories={categories} sort={sort} handleChangeSort={this.handleChangeSort} />
+          </div>     
+        :<h3>Wrong link</h3>}
+            
       </div>
     );
   }

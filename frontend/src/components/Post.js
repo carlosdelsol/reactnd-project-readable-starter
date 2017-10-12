@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import ArrowDownIcon from 'react-icons/lib/fa/angle-down'
 import ArrowUptIcon from 'react-icons/lib/fa/angle-up'
-import { votePost, fetchComments, deletePost} from '../actions'
+import { vote, fetchComments, remove} from '../actions'
 
 class Post extends Component {
     componentDidMount() {
@@ -13,7 +13,7 @@ class Post extends Component {
     }
 
     render() {
-        const { type, post, votePost, detail, comments } = this.props;
+        const { type, post, vote, detail, comments, remove } = this.props;
         const comment = comments[post.id] || {};
         const numComments = Object.keys(comment).length
         
@@ -23,11 +23,11 @@ class Post extends Component {
                     <div className="caption">
                         <div className="row">
                             <div className="col-md-1">
-                                <button className="votes-button" onClick={() => votePost(type, post.id,'upVote')}>
+                                <button className="votes-button" onClick={() => vote(type, post.id,'upVote')}>
                                     <ArrowUptIcon size={30}/>
                                 </button>
                                 <div className="votes-score">{post.voteScore}</div>
-                                <button className="votes-button" onClick={() => votePost(type, post.id,'downVote')}>
+                                <button className="votes-button" onClick={() => vote(type, post.id,'downVote')}>
                                     <ArrowDownIcon size={30}/>
                                 </button>
                             </div>
@@ -42,7 +42,7 @@ class Post extends Component {
                                 <p>Comments: {numComments}</p>
                                 <p>
                                     <Link className="btn btn-info btn-xs" to={"/"+type+"/edit/"+post.id}>Edit</Link> &emsp;
-                                    <button type="button" className="btn btn-danger btn-xs" onClick={() => deletePost(post.id)}>Delete</button>
+                                    <button type="button" className="btn btn-danger btn-xs" onClick={() => remove(type, post.id, ()=>this.props.history.push('/'))}>Delete</button>
                                 </p>
                             </div>
                         </div>
@@ -57,4 +57,4 @@ const mapStateToProps = state => {
       comments: state.comments
     };
   };
-export default connect(mapStateToProps,{votePost, getComments: fetchComments, deletePost})(Post);
+export default withRouter(connect(mapStateToProps,{vote, getComments: fetchComments, remove})(Post));

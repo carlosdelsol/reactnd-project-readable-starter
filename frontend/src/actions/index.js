@@ -5,12 +5,12 @@ export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
 export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
 export const VOTE_POST = "VOTE_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
-export const ADD_NEW_POSTS = 'ADD_NEW_POSTS'
-export const ADD_COMMENTS = 'ADD_COMMENTS'
+export const ADD_NEW_POST = 'ADD_NEW_POST'
+export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_POST = 'EDIT_POST'
-export const EDIT_COMMENTS = 'EDIT_COMMENTS'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_POST = 'DELETE_POST'
-export const DELETE_COMMENTS = 'DELETE_COMMENTS'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 const API = `http://localhost:3001`;
 const headers = { 'Authorization': 'carlosdelsol' };
@@ -55,26 +55,32 @@ export function  fetchComments(id){
   }
 }
 
-export function votePost(type, id,option){
+export function vote(type, id,option){
   const URL = `${API}/${type}/${id}`
   const request = axios.post(URL,{option},{headers})
   return dispatch => {
       request.then((post)=>{
-        dispatch(updateVotePost(post.data))
+        dispatch(updateVote(post.data))
       })
   }
 }
 
-export function  deletePost(id){
-  return dispatch => {
-    
-    const URL = `${API}/posts/${id}`
-    axios.delete(URL,{headers}).then(()=>
-      console.log(id)
-    )
-  }
-  
-}
+export const remove = (type, id, callback) => dispatch => {
+	var request = new Request(`${API}/${type}/${id}`, {
+		method: 'DELETE',
+		headers: headers
+	});
+	return fetch(request)	
+	.then(res => res.json())
+	.then((obj) => {
+    if(type==="posts"){
+      dispatch(removePost(obj)); 
+      callback()
+    }else{
+      dispatch(removeComment(obj)); 
+    }
+  })
+};
 
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
@@ -97,19 +103,29 @@ export const receiveComments = (posts, id) => ({
   id
 });
 
-export const updateVotePost = post => ({
+export const updateVote = post => ({
   type: VOTE_POST,
   post
 });
 
+export const removePost = post => ({
+		type: DELETE_POST,
+    	post
+});
+
+export const removeComment = comment => ({
+  type: DELETE_COMMENT,
+    comment
+});
+
 export function addNewPosts (){
   return{
-    type: ADD_NEW_POSTS, 
+    type: ADD_NEW_POST, 
   }
 }
 export function addComments (){
   return{
-    type: ADD_COMMENTS, 
+    type: ADD_COMMENT, 
   }
 }
 export function editPosts (){
@@ -119,12 +135,12 @@ export function editPosts (){
 }
 export function editComments (){
   return{
-    type: EDIT_COMMENTS, 
+    type: EDIT_COMMENT, 
   }
 }
 
 export function deleteComments (){
   return{
-    type: DELETE_COMMENTS, 
+    type: DELETE_COMMENT, 
   }
 }

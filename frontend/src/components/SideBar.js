@@ -18,7 +18,7 @@ class SideBar extends Component {
                     <option value="voteScore">Score</option>
                 </select>
                 <div className="sidebar-module">
-                    <h4>Categories</h4>
+                    <h4>Categories:</h4>
                     <ol className="list-unstyled">
                         {categories.length!==undefined?
                             categories.map((category, index) =>{

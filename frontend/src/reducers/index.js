@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import _ from 'lodash'
 
 import {
   RECEIVE_POSTS,
@@ -6,12 +7,12 @@ import {
   RECEIVE_COMMENTS,
   RECEIVE_POST,
   VOTE_POST,
-  ADD_NEW_POSTS,
-  ADD_COMMENTS,
+  ADD_NEW_POST,
+  ADD_COMMENT,
   EDIT_POST,
-  EDIT_COMMENTS,
+  EDIT_COMMENT,
   DELETE_POST,
-  DELETE_COMMENTS,
+  DELETE_COMMENT,
 } from '../actions'
 
 
@@ -30,14 +31,12 @@ function posts (state = {}, action) {
       return action.posts;
     case VOTE_POST:
       return state.map((post) => post.id === action.post.id ? action.post : post)
-    case ADD_NEW_POSTS:
+    case ADD_NEW_POST:
       return state
     case EDIT_POST:
       return state
     case DELETE_POST:
-      console.log(action)
-      console.log(state)
-      return state.filter((post) => post.id !== action.id)
+      return state.filter(post => post.id !== action.post.id)
     default:
       return state
   }
@@ -56,7 +55,7 @@ function postSelected (state = {}, action) {
 
 function comments (state = {}, action) {
   switch (action.type) {
-    case RECEIVE_COMMENTS :
+    case RECEIVE_COMMENTS:
       return (action.id && action.posts.length > 0) ? {
             ...state,
             [action.id]: action.posts.reduce(function(map, obj) {
@@ -72,13 +71,20 @@ function comments (state = {}, action) {
             [action.post.id]: action.post
           }
         } : state
-    case ADD_COMMENTS :
+    case ADD_COMMENT:
       return state
-    case EDIT_COMMENTS :
+    case EDIT_COMMENT:
       return state
-    case DELETE_COMMENTS :
-      return state
-    default :
+    case DELETE_COMMENT:
+      return  { ...state,
+                  [action.comment.parentId]: _.values(state[action.comment.parentId])
+                                              .filter(comment => comment.id !== action.comment.id)
+                                              .reduce(function(map, obj) { 
+                                                map[obj.id] = obj; 
+                                                return map; 
+                                              }, {})
+              }
+    default:
       return state
   }
 }
